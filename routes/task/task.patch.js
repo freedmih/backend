@@ -8,7 +8,7 @@ router.patch('/:uuid', async function (req, res) {
 
     const task = req.body;
 
-    const result = await tryPatchTask({ uuid, ...task });
+    const result = await patchTask({ uuid, ...task });
 
     return res.status(result.code).send(result.message);
 });

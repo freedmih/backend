@@ -22,23 +22,28 @@ module.exports.addTask = async task => {
     return uuid;
 }
 
-module.exports.tryRemoveTask = async taskUUID => {
+module.exports.removeTask = async taskUUID => {
 
     const tasks = JSON.parse(await readFile('db.json', 'utf-8'));
 
     const index = tasks.findIndex(task => task.uuid === taskUUID);
     if(index === -1) {
-        return false;
+        return {
+            code: 404,
+            message: "Task not found"
+        };
     }
 
     tasks.splice(index, 1);
 
     await writeFile('db.json', JSON.stringify(tasks));
 
-    return true;
+    return {
+        code: 204
+    };
 }
 
-module.exports.tryPatchTask = async taskToPatch => {
+module.exports.patchTask = async taskToPatch => {
 
     const tasks = JSON.parse(await readFile('db.json', 'utf-8'));
 
