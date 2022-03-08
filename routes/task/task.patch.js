@@ -1,4 +1,4 @@
-const { tryPatchTask } = require("../../db/memory");
+const { patchTask } = require("../../db/memory");
 var express = require('express');
 var router = express.Router();
 

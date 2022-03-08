@@ -6,10 +6,15 @@ const readFile = util.promisify(fs.readFile);
 const writeFile = util.promisify(fs.writeFile);
 
 module.exports.addTask = async task => {
-    
+
     const uuid = crypto.randomUUID();
 
-    const tasks = JSON.parse(await readFile('db.json', 'utf-8'));
+    try {
+        var tasks = JSON.parse(await readFile('db.json', 'utf-8'));
+    }
+    catch (e) {
+        return e;
+    }
 
     tasks.push({
         uuid,
@@ -17,17 +22,27 @@ module.exports.addTask = async task => {
         createdAt: new Date().toUTCString(),
     })
 
-    await writeFile('db.json', JSON.stringify(tasks));
+    try {
+        await writeFile('db.json', JSON.stringify(tasks));
+    }
+    catch(e) {
+        return e;
+    }
 
     return uuid;
 }
 
 module.exports.removeTask = async taskUUID => {
 
-    const tasks = JSON.parse(await readFile('db.json', 'utf-8'));
+    try {
+        var tasks = JSON.parse(await readFile('db.json', 'utf-8'));
+    }
+    catch(e) {
+        return e;
+    }
 
     const index = tasks.findIndex(task => task.uuid === taskUUID);
-    if(index === -1) {
+    if (index === -1) {
         return {
             code: 404,
             message: "Task not found"
@@ -36,7 +51,12 @@ module.exports.removeTask = async taskUUID => {
 
     tasks.splice(index, 1);
 
-    await writeFile('db.json', JSON.stringify(tasks));
+    try {
+        await writeFile('db.json', JSON.stringify(tasks));
+    }
+    catch(e) {
+        return e;
+    }
 
     return {
         code: 204
@@ -44,11 +64,15 @@ module.exports.removeTask = async taskUUID => {
 }
 
 module.exports.patchTask = async taskToPatch => {
-
-    const tasks = JSON.parse(await readFile('db.json', 'utf-8'));
+    try {
+        var tasks = JSON.parse(await readFile('db.json', 'utf-8'));
+    }
+    catch(e) {
+        return e;
+    }
 
     const index = tasks.findIndex(task => task.uuid === taskToPatch.uuid);
-    if(index === -1) {
+    if (index === -1) {
         return {
             code: 400,
             message: "Task not created"
@@ -57,11 +81,23 @@ module.exports.patchTask = async taskToPatch => {
 
     tasks[index] = { ...tasks[index], ...taskToPatch };
 
-    await writeFile('db.json', JSON.stringify(tasks)); 
+    try {
+        await writeFile('db.json', JSON.stringify(tasks));
+    }
+    catch(e) {
+        return e;
+    }
 
     return {
         code: 200,
     };
 }
 
-module.exports.getTasks = async () => JSON.parse(await readFile('db.json', 'utf-8'));
+module.exports.getTasks = async () => {
+    try {
+        return JSON.parse(await readFile('db.json', 'utf-8'));
+    }
+    catch (e) {
+        return e;
+    }
+}

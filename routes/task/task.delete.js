@@ -1,4 +1,4 @@
-const {tryRemoveTask} = require("../../db/memory");
+const {removeTask} = require("../../db/memory");
 var express = require('express');
 var router = express.Router();
 
