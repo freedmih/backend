@@ -17,8 +17,8 @@ router.delete(
         const { uuid } = req.params;
         
         try {
-            const index = await removeTask(uuid);
-            if (index >= 0) {
+            const count = await removeTask(uuid);
+            if (count > 0) {
                 res.status(204).end();
             }
         }

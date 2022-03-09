@@ -7,7 +7,6 @@ router.post(
     '/',
     body('name').isLength({ max: 20 }),
     body('done').isBoolean(),
-    body('createdAt').optional().isDate(),
 
     async function (req, res, next) {
         const errors = validationResult(req);
@@ -15,10 +14,10 @@ router.post(
             return res.status(400).json({ errors: errors.array() });
         }
 
-        const { name, done, createdAt } = req.body;
+        const { name, done } = req.body;
 
         try {
-            const uuid = await addTask({ name, done, createdAt });
+            const uuid = await addTask({ name, done });
 
             return res.json({
                 uuid

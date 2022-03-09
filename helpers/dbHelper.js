@@ -4,6 +4,8 @@ const util = require("util");
 
 const { filter, order, slice } = require("./tasks");
 
+const { Task } = require("../models/task.model");
+
 const { ValidationError } = require("./error");
 
 const readFile = util.promisify(fs.readFile);
@@ -13,33 +15,18 @@ module.exports.addTask = async task => {
 
     const uuid = crypto.randomUUID();
 
-    var tasks = JSON.parse(await readFile('db.json', 'utf-8'));
-
-    tasks.push({
+    await Task.create({
         uuid,
-        ...task,
-        createdAt: new Date().toUTCString(),
+        ...task
     })
-
-    await writeFile('db.json', JSON.stringify(tasks));
 
     return uuid;
 }
 
-module.exports.removeTask = async taskUUID => {
-
-    var tasks = JSON.parse(await readFile('db.json', 'utf-8'));
-
-    const index = tasks.findIndex(task => task.uuid === taskUUID);
-    if (index === -1) {
-        throw new ValidationError('Task not found', 404);
-    }
-
-    tasks.splice(index, 1);
-
-    await writeFile('db.json', JSON.stringify(tasks));
-
-    return index;
+module.exports.removeTask = async uuid => {
+    return await Task.destroy({
+        where: { uuid }
+    });
 }
 
 module.exports.patchTask = async taskToPatch => {
@@ -58,7 +45,7 @@ module.exports.patchTask = async taskToPatch => {
 }
 
 module.exports.getTasks = async ({ filterBy, orderBy, pp, page }) => {
-    const tasks = JSON.parse(await readFile('db.json', 'utf-8'));
+    const tasks = await Task.findAll();
 
     const filtered = filter(tasks, filterBy);
     const ordered = order(filtered, orderBy);
