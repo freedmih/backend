@@ -1,4 +1,4 @@
-const { removeTask } = require("../../db/memory");
+const { removeTask } = require("../../helpers/fileDB");
 const { param, body, validationResult } = require('express-validator');
 var express = require('express');
 var router = express.Router();

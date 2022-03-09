@@ -1,4 +1,4 @@
-const { getTasks } = require("../../db/memory");
+const { getTasks } = require("../../helpers/fileDB");
 const { query, param, validationResult } = require('express-validator');
 var express = require('express');
 var router = express.Router();
@@ -21,7 +21,7 @@ router.get(
 
         const { filterBy, order, page, pp } = req.query;
         const tasks = await getTasks(
-            { filterBy, order, page, pp } 
+            { filterBy, orderBy: order, page, pp } 
         );
 
         return res.json(tasks);
