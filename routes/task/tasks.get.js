@@ -2,8 +2,17 @@ const { query, validationResult } = require('express-validator');
 var express = require('express');
 
 const { Task } = require("../../models/task.model");
-const { filterTasks, orderTasks, sliceTasks } = require("../../helpers/tasks");
 var router = express.Router();
+
+const getFilterByName = filter => {
+    if (filter === 'done')
+        return { done: true }
+    
+    if(filter === 'undone')
+        return { done: false }
+
+    return {};
+};
 
 router.get(
     '/',
@@ -20,19 +29,20 @@ router.get(
         const { filterBy, order, page, pp } = req.query;
 
         try {
-            if(!errors.isEmpty()) {
+            if (!errors.isEmpty()) {
                 return res.status(400).json({ errors: errors.array() });
             }
+            
+            const tasks = await Task.findAll({
+                where: getFilterByName(filterBy),
+                order: [['createdAt', order]],
+                limit: pp,
+                offset: page * pp
+            });
 
-            const tasks = await Task.findAll();
-
-            const filtered = filterTasks(tasks, filterBy);
-            const ordered = orderTasks(filtered, order);
-            const sliced = sliceTasks(ordered, pp, page);
-
-            return res.json(sliced);    
+            return res.json(tasks);
         }
-        catch(err) {
+        catch (err) {
             next(err);
         }
     }
