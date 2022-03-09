@@ -10,7 +10,7 @@ router.post(
     '/',
 
     body('name').isLength({ min: 1, max: 50 }),
-    body('done').isBoolean(),
+    body('done').default(false).isBoolean(),
 
     async function (req, res, next) {
         const errors = validationResult(req);
