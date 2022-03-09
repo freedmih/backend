@@ -1,4 +1,4 @@
-const { patchTask } = require("../../helpers/fileDB");
+const { patchTask } = require("../../helpers/dbHelper");
 const { body, param, validationResult } = require('express-validator');
 var express = require('express');
 var router = express.Router();

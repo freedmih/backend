@@ -33,22 +33,17 @@ module.exports.removeTask = async taskUUID => {
 
     try {
         var tasks = JSON.parse(await readFile('db.json', 'utf-8'));
-    }
-    catch(e) {
-        return e;
-    }
-
-    const index = tasks.findIndex(task => task.uuid === taskUUID);
-    if (index === -1) {
-        return {
-            code: 404,
-            message: "Task not found"
-        };
-    }
-
-    tasks.splice(index, 1);
-
-    try {
+    
+        const index = tasks.findIndex(task => task.uuid === taskUUID);
+        if (index === -1) {
+            return {
+                code: 404,
+                message: "Task not found"
+            };
+        }
+    
+        tasks.splice(index, 1);
+    
         await writeFile('db.json', JSON.stringify(tasks));
     }
     catch(e) {
@@ -63,22 +58,17 @@ module.exports.removeTask = async taskUUID => {
 module.exports.patchTask = async taskToPatch => {
     try {
         var tasks = JSON.parse(await readFile('db.json', 'utf-8'));
-    }
-    catch(e) {
-        return e;
-    }
 
-    const index = tasks.findIndex(task => task.uuid === taskToPatch.uuid);
-    if (index === -1) {
-        return {
-            code: 400,
-            message: "Task not created"
-        };
-    }
+        const index = tasks.findIndex(task => task.uuid === taskToPatch.uuid);
+        if (index === -1) {
+            return {
+                code: 400,
+                message: "Task not created"
+            };
+        }
+    
+        tasks[index] = { ...tasks[index], ...taskToPatch };
 
-    tasks[index] = { ...tasks[index], ...taskToPatch };
-
-    try {
         await writeFile('db.json', JSON.stringify(tasks));
     }
     catch(e) {
