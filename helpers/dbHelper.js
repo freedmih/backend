@@ -22,7 +22,7 @@ module.exports.addTask = async task => {
     })
 
     await writeFile('db.json', JSON.stringify(tasks));
-    
+
     return uuid;
 }
 
@@ -38,6 +38,8 @@ module.exports.removeTask = async taskUUID => {
     tasks.splice(index, 1);
 
     await writeFile('db.json', JSON.stringify(tasks));
+
+    return index;
 }
 
 module.exports.patchTask = async taskToPatch => {
@@ -51,6 +53,8 @@ module.exports.patchTask = async taskToPatch => {
     tasks[index] = { ...tasks[index], ...taskToPatch };
 
     await writeFile('db.json', JSON.stringify(tasks));
+
+    return index;
 }
 
 module.exports.getTasks = async ({ filterBy, orderBy, pp, page }) => {
