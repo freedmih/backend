@@ -9,7 +9,7 @@ var router = express.Router();
 router.post(
     '/',
 
-    body('name').isLength({ max: 20 }),
+    body('name').isLength({ min: 1, max: 50 }),
     body('done').isBoolean(),
 
     async function (req, res, next) {

@@ -7,7 +7,7 @@ router.patch(
     '/:uuid',
 
     param('uuid').isUUID(4),
-    body('name').optional().isLength({ max: 20 }),
+    body('name').optional().isLength({ min: 1, max: 50 }),
     body('done').optional().isBoolean(),
     body('createdAt').optional().isDate(),
 
