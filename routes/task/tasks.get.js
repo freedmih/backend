@@ -19,9 +19,9 @@ router.get(
             return res.status(400).json({ errors: errors.array() });
         }
 
-        const { filterBy } = req.params;
+        const { filterBy, order, page, pp } = req.params;
         const tasks = await getTasks({
-            filterBy
+            filterBy, order, page, pp
         });
 
         return res.json(tasks);
