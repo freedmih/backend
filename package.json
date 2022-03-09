@@ -23,6 +23,9 @@
     "express": "^4.17.3",
     "express-validator": "^6.14.0",
     "nodemon": "^2.0.15",
-    "recursive-readdir-sync": "^1.0.6"
+    "pg": "^8.7.3",
+    "pg-hstore": "^2.3.4",
+    "recursive-readdir-sync": "^1.0.6",
+    "sequelize": "^6.17.0"
   }
 }
