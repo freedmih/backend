@@ -4,7 +4,7 @@ const express = require('express');
 const app = express();
 const db = require("./db");
 
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 const recursive = require('recursive-readdir-sync');
 
@@ -23,7 +23,7 @@ recursive(`${__dirname}/routes`)
     .forEach(file => app.use('/', require(file)));
 
 function logErrors(err, req, res, next) {
-    return res.status(err.httpCode ?? 422).json({ errors: [{ msg: err.message }] });
+    return res.status(err.httpCode ?? 500).json({ errors: [{ msg: err.message }] });
 }
 
 app.use(logErrors);
