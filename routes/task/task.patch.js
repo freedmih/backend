@@ -23,7 +23,9 @@ router.patch(
 
         try {
             await patchTask({ uuid, ...task });
-            return res.status(204);
+            if (index >= 0) {
+                res.status(204).end();
+            }
         }
         catch(err) {
             next(err);

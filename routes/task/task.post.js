@@ -20,7 +20,9 @@ router.post(
         try {
             const uuid = await addTask({ name, done, createdAt });
 
-            return res.send(uuid);
+            return res.json({
+                uuid
+            });
         }
         catch(err) {
             next(err);
