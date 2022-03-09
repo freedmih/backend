@@ -11,7 +11,7 @@ router.patch(
     body('done').optional().isBoolean(),
     body('createdAt').optional().isDate(),
 
-    async function (req, res) {
+    async function (req, res, next) {
         const errors = validationResult(req);
         if(!errors.isEmpty()) {
             return res.status(400).json({ errors: errors.array() });
@@ -21,9 +21,13 @@ router.patch(
 
         const task = req.body;
 
-        const result = await patchTask({ uuid, ...task });
-
-        return res.status(result.code).send(result.message);
+        try {
+            await patchTask({ uuid, ...task });
+            return res.status(204);
+        }
+        catch(err) {
+            next(err);
+        }
     }
 );
 

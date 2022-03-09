@@ -1,4 +1,4 @@
-const { addTask } = require("../../helpers/fileDB");
+const { addTask } = require("../../helpers/dbHelper");
 const { body, validationResult } = require('express-validator');
 var express = require('express');
 var router = express.Router();
@@ -9,7 +9,7 @@ router.post(
     body('done').isBoolean(),
     body('createdAt').optional().isDate(),
 
-    async function (req, res) {
+    async function (req, res, next) {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             return res.status(400).json({ errors: errors.array() });
@@ -17,9 +17,14 @@ router.post(
 
         const { name, done, createdAt } = req.body;
 
-        const uuid = await addTask({ name, done, createdAt });
+        try {
+            const uuid = await addTask({ name, done, createdAt });
 
-        return res.send(uuid);
+            return res.send(uuid);
+        }
+        catch(err) {
+            next(err);
+        }
     }
 );
 
