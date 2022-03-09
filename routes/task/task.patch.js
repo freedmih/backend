@@ -1,6 +1,8 @@
 const { patchTask } = require("../../helpers/dbHelper");
 const { body, param, validationResult } = require('express-validator');
+const { Task } = require("../../models/task.model");
 var express = require('express');
+const { ApiError } = require("../../helpers/error");
 var router = express.Router();
 
 router.patch(
@@ -13,21 +15,29 @@ router.patch(
 
     async function (req, res, next) {
         const errors = validationResult(req);
-        if(!errors.isEmpty()) {
+        if (!errors.isEmpty()) {
             return res.status(400).json({ errors: errors.array() });
         }
 
         const { uuid } = req.params;
 
-        const task = req.body;
+        const taskContent = req.body;
 
         try {
-            await patchTask({ uuid, ...task });
-            if (index >= 0) {
-                res.status(204).end();
-            }
+            const task = await Task.update({
+                ...taskContent
+            }, {
+                where:  {
+                    uuid
+                }
+            })
+
+            if (!task)
+                throw new ApiError("Task hasn't update", 422);
+
+            res.status(204).end();
         }
-        catch(err) {
+        catch (err) {
             next(err);
         }
     }
