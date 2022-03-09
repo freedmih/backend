@@ -1,9 +1,9 @@
-class ValidationError extends Error {
+class ApiError extends Error {
     constructor(message, httpCode) {
         super(message);
-        this.name = "Validatinon Error";
+        this.name = "Api Error";
         this.httpCode = httpCode;
     }
 }
 
-module.exports.ValidationError = ValidationError;
+module.exports.ApiError = ApiError;

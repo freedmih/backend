@@ -1,6 +1,6 @@
 const { param, body, validationResult } = require('express-validator');
 var express = require('express');
-const { ValidationError } = require("../../helpers/error");
+const { ApiError } = require("../../helpers/error");
 var router = express.Router();
 
 router.delete(
@@ -25,7 +25,7 @@ router.delete(
                 return res.status(204).end();
             }
 
-            throw new ValidationError("Task not found", 404);
+            throw new ApiError("Task not found", 404);
         }
         catch(err) {
             next(err)

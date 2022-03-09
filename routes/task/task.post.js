@@ -3,7 +3,7 @@ const { body, validationResult } = require('express-validator');
 var express = require('express');
 const crypto = require("crypto");
 const { Task } = require("../../models/task.model");
-const { ValidationError } = require("../../helpers/error");
+const { ApiError } = require("../../helpers/error");
 var router = express.Router();
 
 router.post(
@@ -32,7 +32,7 @@ router.post(
                     uuid
                 });
             }
-            throw new ValidationError('Task didn\'t create', 500);
+            throw new ApiError('Task didn\'t create', 500);
         }
         catch (err) {
             next(err);

@@ -1,7 +1,6 @@
-const { getTasks } = require("../../helpers/dbHelper");
-const { query, param, validationResult } = require('express-validator');
+const { query, validationResult } = require('express-validator');
 var express = require('express');
-const { ValidationError } = require("../../helpers/error");
+
 const { Task } = require("../../models/task.model");
 const { filterTasks, orderTasks, sliceTasks } = require("../../helpers/tasks");
 var router = express.Router();
