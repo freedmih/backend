@@ -1,14 +1,26 @@
 const { addTask } = require("../../db/memory");
+const { body, validationResult } = require('express-validator');
 var express = require('express');
 var router = express.Router();
 
-router.post('/', function (req, res) {
+router.post(
+    '/',
+    body('name').isLength({ max: 20 }),
+    body('done').isBoolean(),
+    body('createdAt').optional().isDate(),
 
-    const { name, done, createdAt } = req.body;
+    async function (req, res) {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
 
-    const uuid = addTask({ name, done, createdAt });
+        const { name, done, createdAt } = req.body;
 
-    return res.send(uuid); 
-});
+        const uuid = await addTask({ name, done, createdAt });
+
+        return res.send(uuid);
+    }
+);
 
 module.exports = router;
