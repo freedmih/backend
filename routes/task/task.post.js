@@ -1,10 +1,14 @@
 const { addTask } = require("../../helpers/dbHelper");
 const { body, validationResult } = require('express-validator');
 var express = require('express');
+const crypto = require("crypto");
+const { Task } = require("../../models/task.model");
+const { ValidationError } = require("../../helpers/error");
 var router = express.Router();
 
 router.post(
     '/',
+
     body('name').isLength({ max: 20 }),
     body('done').isBoolean(),
 
@@ -17,13 +21,20 @@ router.post(
         const { name, done } = req.body;
 
         try {
-            const uuid = await addTask({ name, done });
+            const uuid = crypto.randomUUID();
 
-            return res.json({
-                uuid
-            });
+            const task = await Task.create({
+                uuid, name, done
+            })
+
+            if (task.uuid === uuid) {
+                return res.json({
+                    uuid
+                });
+            }
+            throw new ValidationError('Task didn\'t create', 500);
         }
-        catch(err) {
+        catch (err) {
             next(err);
         }
     }

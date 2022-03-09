@@ -1,6 +1,6 @@
-const { removeTask } = require("../../helpers/dbHelper");
 const { param, body, validationResult } = require('express-validator');
 var express = require('express');
+const { ValidationError } = require("../../helpers/error");
 var router = express.Router();
 
 router.delete(
@@ -17,10 +17,15 @@ router.delete(
         const { uuid } = req.params;
         
         try {
-            const count = await removeTask(uuid);
+            const count = await Task.destroy({
+                where: { uuid }
+            });
+
             if (count > 0) {
-                res.status(204).end();
+                return res.status(204).end();
             }
+
+            throw new ValidationError("Task not found", 404);
         }
         catch(err) {
             next(err)

@@ -1,4 +1,4 @@
-module.exports.filter = (tasks, filterBy) => {
+module.exports.filterTasks = (tasks, filterBy) => {
     if (filterBy === 'done') {
         tasks = tasks.filter(task => task.done)
         return tasks;
@@ -12,13 +12,13 @@ module.exports.filter = (tasks, filterBy) => {
     return tasks;
 }
 
-module.exports.order = (tasks, order) => {
+module.exports.orderTasks = (tasks, order) => {
     if (order === 'asc')
         return tasks = tasks.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
     
     return tasks = tasks.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
 }
 
-module.exports.slice = (tasks, pp, page) => {
+module.exports.sliceTasks = (tasks, pp, page) => {
     return tasks.slice(pp * page, pp * page + pp);
 }

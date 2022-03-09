@@ -2,6 +2,8 @@ const { getTasks } = require("../../helpers/dbHelper");
 const { query, param, validationResult } = require('express-validator');
 var express = require('express');
 const { ValidationError } = require("../../helpers/error");
+const { Task } = require("../../models/task.model");
+const { filterTasks, orderTasks, sliceTasks } = require("../../helpers/tasks");
 var router = express.Router();
 
 router.get(
@@ -23,11 +25,13 @@ router.get(
                 return res.status(400).json({ errors: errors.array() });
             }
 
-            var tasks = await getTasks(
-                { filterBy, orderBy: order, page, pp } 
-            );
+            const tasks = await Task.findAll();
 
-            return res.json(tasks);    
+            const filtered = filterTasks(tasks, filterBy);
+            const ordered = orderTasks(filtered, order);
+            const sliced = sliceTasks(ordered, pp, page);
+
+            return res.json(sliced);    
         }
         catch(err) {
             next(err);
