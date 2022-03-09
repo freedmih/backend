@@ -1,4 +1,3 @@
-const { patchTask } = require("../../helpers/dbHelper");
 const { body, param, validationResult } = require('express-validator');
 const { Task } = require("../../models/task.model");
 var express = require('express');
