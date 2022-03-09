@@ -1,6 +1,7 @@
 const { param, body, validationResult } = require('express-validator');
 var express = require('express');
 const { ApiError } = require("../../helpers/error");
+const { Task } = require("../../models/task.model");
 var router = express.Router();
 
 router.delete(
