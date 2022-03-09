@@ -1,12 +1,31 @@
 const { getTasks } = require("../../db/memory");
+const { query, param, validationResult } = require('express-validator');
 var express = require('express');
 var router = express.Router();
 
-router.get('/', async function (req, res) {
+router.get(
+    '/',
 
-    const tasks = await getTasks();
+    query('filterBy').default('all').isIn(['done', 'undone']),
+    query('order').default('asc').isIn(['asc', 'desc']),
+    query('page').default(1).isInt(),
+    query('pp').default(1).isInt(),
 
-    return res.json(tasks);
-});
+    async function (req, res) {
+
+        const errors = validationResult(req);
+
+        if(!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+
+        const { filterBy } = req.params;
+        const tasks = await getTasks({
+            filterBy
+        });
+
+        return res.json(tasks);
+    }
+);
 
 module.exports = router;
