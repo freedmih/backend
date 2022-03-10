@@ -7,6 +7,8 @@ const { Op } = require("sequelize")
 
 const { User } = require("../../models/index");
 
+const { generateAccessToken } = require("../../helpers/jwt");
+
 var router = express.Router();
 
 router.post(
@@ -34,9 +36,9 @@ router.post(
                 throw new ApiError('Login or password don\'t match', 403);
             }
 
-            return res.json({
-                token: user.id
-            });
+            const token = generateAccessToken({ username: user.login});
+
+            return res.json({ token });
         }
         catch (err) {
             next(err)
