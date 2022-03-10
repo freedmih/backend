@@ -1,13 +1,11 @@
 const { query, validationResult } = require('express-validator');
 var express = require('express');
 const validateErrors = require("../../errors/errorWrapper");
-
 const { Task } = require("../../models/index");
 
 var router = express.Router();
 
 const getFilterByName = filter => {
-
     if (filter === 'done')
         return { done: true }
     

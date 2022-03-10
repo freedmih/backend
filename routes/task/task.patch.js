@@ -3,7 +3,11 @@ const { Task } = require("../../models/index");
 var express = require('express');
 const { ApiError } = require("../../errors/apiError");
 const validateErrors = require("../../errors/errorWrapper");
+const protect = require("../../middlewares/protect");
+
 var router = express.Router();
+
+router.use('/', protect);
 
 router.patch(
     '/:uuid',

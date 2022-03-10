@@ -1,10 +1,12 @@
 const { body, validationResult } = require('express-validator');
 var express = require('express');
 const { Task } = require("../../models/index");
-
+const protect = require("../../middlewares/protect");
 const { ApiError } = require("../../errors/apiError");
 const validateErrors = require("../../errors/errorWrapper");
 var router = express.Router();
+
+router.use('/', protect);
 
 router.post(
     '/',
