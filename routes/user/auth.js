@@ -36,7 +36,7 @@ router.post(
                 throw new ApiError('Login or password don\'t match', 403);
             }
 
-            const token = generateAccessToken({ username: user.login});
+            const token = generateAccessToken({ username: user.login, id: user.id});
 
             return res.json({ token });
         }

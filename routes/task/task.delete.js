@@ -10,21 +10,23 @@ const { Task } = require("../../models/index");
 
 var router = express.Router();
 
-router.use('/tasks/:uuid', protect);
+//router.use('/tasks/:uuid', protect);
 
 router.delete(
     '/tasks/:uuid',
-
+    protect,
     param('uuid').isUUID(4),
 
     async (req, res, next) => {
         const { uuid } = req.params;
 
+        const user = req.user;
+
         try {
             validateErrors(req);
 
             const count = await Task.destroy({
-                where: { uuid }
+                where: { uuid, userId: user.id }
             });
 
             if (count === 0)

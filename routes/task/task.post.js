@@ -6,11 +6,11 @@ const { ApiError } = require("../../errors/apiError");
 const validateErrors = require("../../errors/errorWrapper");
 var router = express.Router();
 
-router.use('/tasks', protect);
+//router.use('/tasks', );
 
 router.post(
     '/tasks',
-
+    protect,
     body('name').isLength({ min: 1, max: 50 }),
     body('done').default(false).isBoolean(),
 
@@ -18,10 +18,11 @@ router.post(
         validateErrors(req);
 
         const { name, done } = req.body;
+        const user = req.user;
 
         try {
             const task = await Task.create({
-                name, done
+                name, done, userId: user.id
             })
 
             return res.json({

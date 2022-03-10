@@ -7,11 +7,9 @@ const protect = require("../../middlewares/protect");
 
 var router = express.Router();
 
-router.use('/tasks/:uuid', protect);
-
 router.patch(
     '/tasks/:uuid',
-
+    protect,
     param('uuid').isUUID(4),
     body('name').optional().isLength({ min: 1, max: 50 }),
     body('done').optional().isBoolean(),
@@ -24,12 +22,15 @@ router.patch(
 
         const taskContent = req.body;
 
+        const user = req.user;
+
         try {
             const task = await Task.update({
                 ...taskContent
             }, {
                 where:  {
-                    uuid
+                    uuid,
+                    userId: user.id
                 }
             })
 

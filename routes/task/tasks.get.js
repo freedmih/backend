@@ -2,7 +2,7 @@ const { query, validationResult } = require('express-validator');
 var express = require('express');
 const validateErrors = require("../../errors/errorWrapper");
 const { Task } = require("../../models/index");
-
+const protect = require("../../middlewares/protect");
 var router = express.Router();
 
 const getFilterByName = filter => {
@@ -17,7 +17,7 @@ const getFilterByName = filter => {
 
 router.get(
     '/tasks',
-
+    protect,
     query('filterBy').default('all').isIn(['done', 'undone', 'all']),
     query('order').default('asc').isIn(['asc', 'desc']),
     query('page').default(0).isInt(),
@@ -26,11 +26,15 @@ router.get(
     async (req, res, next) => {
         const { filterBy, order, page, pp } = req.query;
 
+        const user = req.user;
+
         try {
             validateErrors(req);
 
             const tasks = await Task.findAll({
-                where: getFilterByName(filterBy),
+                where: { ...getFilterByName(filterBy),
+                    userId: user.id
+                },
                 order: [['createdAt', order]],
                 limit: pp,
                 offset: page * pp
