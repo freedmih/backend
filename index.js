@@ -9,9 +9,12 @@ const port = process.env.PORT || 3000;
 
 const recursive = require('recursive-readdir-sync');
 
+const { Task } = require("./models/task.model");
+
 (async () => {
     try {
         await db.authenticate();
+        await Task.sync({alter: true});
         console.log('Connection has been established successfully.');
     } catch (error) {
         console.error('Unable to connect to the database:', error);
