@@ -11,7 +11,8 @@ module.exports = {
 
     await queryInterface.addColumn('Tasks', 'userId', {
       type: Sequelize.INTEGER,
-      allowNull: false
+      allowNull: false,
+      defaultValue: 1
     })
   },
 
