@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon index.js",
-    "start": "npx sequelize-cli db:migrate && node index.js"
+    "start": "npx sequelize-cli db:seed:undo:all && npx sequelize-cli db:migrate && npx sequelize-cli db:seed --seed seeders/20220310121709-init-users.js && npx sequelize-cli db:seed --seed seeders/20220310102405-init-tasks.js && node index.js"
   },
   "repository": {
     "type": "git",
