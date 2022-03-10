@@ -6,7 +6,9 @@ module.exports = process.env.NODE_ENV == "production" ? new Sequelize(
     process.env.DATABASE_URL,
     {
         dialect: 'postgres',
-        ssl: true
+        dialectOptions: {
+            ssl: true
+        }
     }
 ) :
 new Sequelize(
