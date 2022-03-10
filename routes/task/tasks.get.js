@@ -1,5 +1,6 @@
 const { query, validationResult } = require('express-validator');
 var express = require('express');
+const validateErrors = require("../../errors/errorWrapper");
 
 const { Task } = require("../../models/task.model");
 var router = express.Router();
@@ -22,16 +23,11 @@ router.get(
     query('page').default(0).isInt(),
     query('pp').default(5).isInt(),
 
-    async function (req, res, next) {
-
-        const errors = validationResult(req);
-
+    async (req, res, next) => {
         const { filterBy, order, page, pp } = req.query;
 
         try {
-            if (!errors.isEmpty()) {
-                return res.status(400).json({ errors: errors.array() });
-            }
+            validateErrors(req);
             
             const tasks = await Task.findAll({
                 where: getFilterByName(filterBy),

@@ -1,7 +1,8 @@
 const { body, param, validationResult } = require('express-validator');
 const { Task } = require("../../models/task.model");
 var express = require('express');
-const { ApiError } = require("../../helpers/error");
+const { ApiError } = require("../../errors/apiError");
+const validateErrors = require("../../errors/errorWrapper");
 var router = express.Router();
 
 router.patch(
@@ -12,11 +13,8 @@ router.patch(
     body('done').optional().isBoolean(),
     body('createdAt').optional().isDate(),
 
-    async function (req, res, next) {
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            return res.status(400).json({ errors: errors.array() });
-        }
+    async (req, res, next) => {
+        validateErrors(req);
 
         const { uuid } = req.params;
 

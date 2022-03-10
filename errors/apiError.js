@@ -3,6 +3,7 @@ class ApiError extends Error {
         super(message);
         this.name = "Api Error";
         this.httpCode = httpCode;
+        this.errors = [message];
     }
 }
 

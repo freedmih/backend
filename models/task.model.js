@@ -1,12 +1,12 @@
-const { DataTypes } = require('sequelize');
+const { DataTypes, Sequelize } = require('sequelize');
 const db = require("./../db");
 
 const Task = db.define('Task', {
     uuid: {
         type: DataTypes.UUID,
         unique: true,
-        allowNull: false,
-        primaryKey: true
+        primaryKey: true,
+        defaultValue: Sequelize.UUIDV4
     },
     name: {
         type: DataTypes.TEXT,

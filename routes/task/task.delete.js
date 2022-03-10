@@ -1,7 +1,9 @@
 const { param, body, validationResult } = require('express-validator');
 var express = require('express');
-const { ApiError } = require("../../helpers/error");
+const { ApiError } = require("../../errors/apiError");
+const { ValidationError } = require("../../errors/validationError");
 const { Task } = require("../../models/task.model");
+const validateErrors = require("../../errors/errorWrapper");
 var router = express.Router();
 
 router.delete(
@@ -9,26 +11,22 @@ router.delete(
 
     param('uuid').isUUID(4),
 
-    async function (req, res, next) {
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            return res.status(400).json({ errors: errors.array() });
-        }
-
+    async (req, res, next) => {
         const { uuid } = req.params;
-        
+
         try {
+            validateErrors(req);
+
             const count = await Task.destroy({
                 where: { uuid }
             });
 
-            if (count > 0) {
-                return res.status(204).end();
-            }
+            if (count === 0)
+                throw new ApiError("Task not found", 404);
 
-            throw new ApiError("Task not found", 404);
+            return res.sendStatus(204);
         }
-        catch(err) {
+        catch (err) {
             next(err)
         }
     }
