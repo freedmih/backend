@@ -1,5 +1,7 @@
 'use strict';
 
+const crypto = require("crypto");
+
 module.exports = {
   async up(queryInterface, Sequelize) {
     /**
@@ -13,20 +15,32 @@ module.exports = {
     */
     await queryInterface.bulkInsert('Tasks', [  
       {
+        uuid: crypto.randomUUID(),
         name: 'Make layout',
-        done: true
+        done: true,
+        createdAt: new Date(),
+        updatedAt: new Date()
       },
       {
+        uuid: crypto.randomUUID(),
         name: 'Make front-end app',
-        done: true
+        done: true,
+        createdAt: new Date(),
+        updatedAt: new Date()
       },
       {
+        uuid: crypto.randomUUID(),
         name: 'Add integration with API',
-        done: true
+        done: true,
+        createdAt: new Date(),
+        updatedAt: new Date()
       },
       {
+        uuid: crypto.randomUUID(),
         name: 'Create a basic back-end',
-        done: false
+        done: false,
+        createdAt: new Date(),
+        updatedAt: new Date()
       },
     ])
   },
