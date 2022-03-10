@@ -14,6 +14,7 @@ new Sequelize(
     process.env.DEV_POSTGRES_PASS,
     {
         host: process.env.DEV_POSTGRES_HOST,
-        dialect: 'postgres'
+        dialect: 'postgres',
+        ssl: true
     }
 );
