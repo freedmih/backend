@@ -1,5 +1,5 @@
 const { body, param, validationResult } = require('express-validator');
-const { Task } = require("../../models/task.model");
+const { Task } = require("../../models/index");
 var express = require('express');
 const { ApiError } = require("../../errors/apiError");
 const validateErrors = require("../../errors/errorWrapper");

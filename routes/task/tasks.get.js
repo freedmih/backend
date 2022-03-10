@@ -2,10 +2,12 @@ const { query, validationResult } = require('express-validator');
 var express = require('express');
 const validateErrors = require("../../errors/errorWrapper");
 
-const { Task } = require("../../models/task.model");
+const { Task } = require("../../models/index");
+
 var router = express.Router();
 
 const getFilterByName = filter => {
+
     if (filter === 'done')
         return { done: true }
     
@@ -28,7 +30,7 @@ router.get(
 
         try {
             validateErrors(req);
-            
+
             const tasks = await Task.findAll({
                 where: getFilterByName(filterBy),
                 order: [['createdAt', order]],

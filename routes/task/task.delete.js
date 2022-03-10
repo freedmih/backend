@@ -2,8 +2,10 @@ const { param, body, validationResult } = require('express-validator');
 var express = require('express');
 const { ApiError } = require("../../errors/apiError");
 const { ValidationError } = require("../../errors/validationError");
-const { Task } = require("../../models/task.model");
 const validateErrors = require("../../errors/errorWrapper");
+
+const { Task } = require("../../models/index");
+
 var router = express.Router();
 
 router.delete(
