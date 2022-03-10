@@ -7,10 +7,10 @@ const protect = require("../../middlewares/protect");
 
 var router = express.Router();
 
-router.use('/', protect);
+router.use('/tasks/:uuid', protect);
 
 router.patch(
-    '/:uuid',
+    '/tasks/:uuid',
 
     param('uuid').isUUID(4),
     body('name').optional().isLength({ min: 1, max: 50 }),

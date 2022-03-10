@@ -16,7 +16,7 @@ const getFilterByName = filter => {
 };
 
 router.get(
-    '/',
+    '/tasks',
 
     query('filterBy').default('all').isIn(['done', 'undone', 'all']),
     query('order').default('asc').isIn(['asc', 'desc']),

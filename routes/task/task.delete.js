@@ -10,10 +10,10 @@ const { Task } = require("../../models/index");
 
 var router = express.Router();
 
-router.use('/', protect);
+router.use('/tasks/:uuid', protect);
 
 router.delete(
-    '/:uuid',
+    '/tasks/:uuid',
 
     param('uuid').isUUID(4),
 

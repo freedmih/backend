@@ -6,10 +6,10 @@ const { ApiError } = require("../../errors/apiError");
 const validateErrors = require("../../errors/errorWrapper");
 var router = express.Router();
 
-router.use('/', protect);
+router.use('/tasks', protect);
 
 router.post(
-    '/',
+    '/tasks',
 
     body('name').isLength({ min: 1, max: 50 }),
     body('done').default(false).isBoolean(),
