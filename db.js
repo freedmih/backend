@@ -5,7 +5,8 @@ const { Sequelize, DataTypes } = require('sequelize');
 module.exports = process.env.NODE_ENV == "production" ? new Sequelize(
     process.env.DATABASE_URL,
     {
-        dialect: 'postgres'
+        dialect: 'postgres',
+        ssl: true
     }
 ) :
 new Sequelize(
@@ -15,6 +16,5 @@ new Sequelize(
     {
         host: process.env.DEV_POSTGRES_HOST,
         dialect: 'postgres',
-        ssl: true
     }
 );
