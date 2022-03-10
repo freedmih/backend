@@ -8,9 +8,4 @@ module.exports =
         "host": process.env.DEV_POSTGRES_HOST,
         "dialect": "postgres"
     },
-    "production": {
-        "database": process.env.PROD_POSTGRESS_DB,
-        "host": process.env.PROD_POSTGRESS_HOST,
-        "dialect": "postgres"
-    }
 }
