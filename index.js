@@ -2,10 +2,11 @@ require('dotenv').config();
 const process = require('process');
 
 const express = require('express');
+const cors = require('cors');
 const app = express();
 const db = require("./db");
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 4000;
 
 const recursive = require('recursive-readdir-sync');
 
@@ -18,6 +19,7 @@ const recursive = require('recursive-readdir-sync');
     }
 })();
 
+app.use(cors());
 app.use(express.json());
 
 recursive(`${__dirname}/routes`)
