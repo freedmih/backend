@@ -9,7 +9,7 @@ var router = express.Router();
 //router.use('/tasks', );
 
 router.post(
-    '/tasks',
+    '/task',
     protect,
     body('name').isLength({ min: 1, max: 50 }),
     body('done').default(false).isBoolean(),

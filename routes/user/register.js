@@ -12,7 +12,7 @@ var router = express.Router();
 router.post(
     '/register',
     
-    body('login').isAlphanumeric(),
+    body('login'),
     body('password'),
     body('passwordConfirmation'),
 

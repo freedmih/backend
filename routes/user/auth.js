@@ -14,7 +14,7 @@ var router = express.Router();
 router.post(
     '/auth',
     
-    body('login').isAlphanumeric(),
+    body('login'),
     body('password'),
 
     async (req, res, next) => {

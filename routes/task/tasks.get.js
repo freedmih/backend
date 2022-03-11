@@ -20,7 +20,7 @@ router.get(
     protect,
     query('filterBy').default('all').isIn(['done', 'undone', 'all']),
     query('order').default('asc').isIn(['asc', 'desc']),
-    query('page').default(0).isInt(),
+    query('page').default(1).isInt(),
     query('pp').default(5).isInt(),
 
     async (req, res, next) => {
@@ -37,10 +37,19 @@ router.get(
                 },
                 order: [['createdAt', order]],
                 limit: pp,
-                offset: page * pp
+                offset: (page - 1) * pp
             });
 
-            return res.json(tasks);
+            const count = await Task.count({
+                where: { ...getFilterByName(filterBy),
+                    userId: user.id
+                }
+            });
+
+            return res.json( {
+                count,
+                tasks
+            });
         }
         catch (err) {
             next(err);

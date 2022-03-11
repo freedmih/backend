@@ -13,7 +13,7 @@ var router = express.Router();
 //router.use('/tasks/:uuid', protect);
 
 router.delete(
-    '/tasks/:uuid',
+    '/task/:uuid',
     protect,
     param('uuid').isUUID(4),
 
