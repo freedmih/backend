@@ -15,7 +15,9 @@ module.exports = {
         defaultValue: 1
       })
     }
-    catch(err) {}
+    catch(e) {
+      console.log(e);
+    }
   },
 
   async down (queryInterface, Sequelize) {
