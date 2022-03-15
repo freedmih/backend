@@ -25,14 +25,11 @@ router.post(
 
             const user = await User.findOne({
                 where: {
-                    [Op.and]: [
-                        { login },
-                        { password }
-                    ]
+                        login,
                 }
             });
 
-            if (!user) {
+            if (!user || !user.validPassword(password)) {
                 throw new ApiError('Login or password don\'t match', 403);
             }
 

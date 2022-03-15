@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon index.js",
-    "reset-db": "npx sequelize-cli db:seed:undo:all && npx sequelize-cli db:seed --seed seeders/20220310121709-init-users.js && npx sequelize-cli db:seed --seed seeders/20220310102405-init-tasks.js && ",
+    "reset-db": "npx sequelize-cli db:seed:undo:all && npx sequelize-cli db:seed --seed seeders/20220310121709-init-users.js && npx sequelize-cli db:seed --seed seeders/20220310102405-init-tasks.js",
     "start": "npx sequelize-cli db:migrate && node index.js"
   },
   "repository": {
@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/freedmih/backend#readme",
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "config": "^3.3.7",
     "cors": "^2.8.5",
     "dotenv": "^16.0.0",
