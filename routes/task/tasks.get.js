@@ -1,9 +1,9 @@
 const { query, validationResult } = require('express-validator');
-var express = require('express');
+const express = require('express');
 const validateErrors = require("../../errors/errorWrapper");
 const { Task } = require("../../models/index");
 const protect = require("../../middlewares/protect");
-var router = express.Router();
+const router = express.Router();
 
 const getFilterByName = filter => {
     if (filter === 'done')

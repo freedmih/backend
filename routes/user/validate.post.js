@@ -1,5 +1,5 @@
 const { param, body, validationResult } = require('express-validator');
-var express = require('express');
+const express = require('express');
 const { ApiError } = require("../../errors/apiError");
 const { ValidationError } = require("../../errors/validationError");
 const validateErrors = require("../../errors/errorWrapper");
@@ -11,7 +11,7 @@ const { generateAccessToken } = require("../../helpers/jwt");
 const protect = require("../../middlewares/protect");
 
 
-var router = express.Router();
+const router = express.Router();
 
 router.post(
     '/validate',

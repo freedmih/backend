@@ -1,11 +1,11 @@
 const { body, param, validationResult } = require('express-validator');
 const { Task } = require("../../models/index");
-var express = require('express');
+const express = require('express');
 const { ApiError } = require("../../errors/apiError");
 const validateErrors = require("../../errors/errorWrapper");
 const protect = require("../../middlewares/protect");
 
-var router = express.Router();
+const router = express.Router();
 
 router.patch(
     '/task/:uuid',

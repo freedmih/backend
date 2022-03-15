@@ -1,5 +1,5 @@
 const { param, body, validationResult } = require('express-validator');
-var express = require('express');
+const express = require('express');
 const { ApiError } = require("../../errors/apiError");
 const { ValidationError } = require("../../errors/validationError");
 const validateErrors = require("../../errors/errorWrapper");
@@ -8,9 +8,7 @@ const protect = require("../../middlewares/protect");
 
 const { Task } = require("../../models/index");
 
-var router = express.Router();
-
-//router.use('/tasks/:uuid', protect);
+const router = express.Router();
 
 router.delete(
     '/task/:uuid',

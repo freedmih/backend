@@ -1,5 +1,5 @@
 const { param, body, validationResult } = require('express-validator');
-var express = require('express');
+const express = require('express');
 const { ApiError } = require("../../errors/apiError");
 const { ValidationError } = require("../../errors/validationError");
 const validateErrors = require("../../errors/errorWrapper");
@@ -9,7 +9,7 @@ const { User } = require("../../models/index");
 
 const { generateAccessToken } = require("../../helpers/jwt");
 
-var router = express.Router();
+const router = express.Router();
 
 router.post(
     '/auth',
