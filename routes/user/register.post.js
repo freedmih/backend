@@ -12,9 +12,9 @@ const router = express.Router();
 router.post(
     '/register',
 
-    body('login').isLength({ min: 3, max: 20 }),
-    body('password').isLength({ min: 5, max: 10 }),
-    body('passwordConfirmation').isLength({ min: 5, max: 10 }),
+    body('login').isLength({ min: 3, max: 20 }).withMessage('The login must be 3 to 20 characters length'),
+    body('password').isLength({ min: 5, max: 10 }).withMessage('The password must be 3 to 20 characters length'),
+    body('passwordConfirmation'),
 
     async (req, res, next) => {
         const { login, password, passwordConfirmation } = req.body;
@@ -28,7 +28,7 @@ router.post(
                 }
             });
 
-            if (password != passwordConfirmation) {
+            if (password !== passwordConfirmation) {
                 throw new ApiError('Password confirmation doesn\'t match Password', 400);
             }
 
