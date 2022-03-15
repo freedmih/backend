@@ -11,10 +11,10 @@ const router = express.Router();
 
 router.post(
     '/register',
-    
-    body('login'),
-    body('password'),
-    body('passwordConfirmation'),
+
+    body('login').isLength({ min: 3, max: 20 }),
+    body('password').isLength({ min: 5, max: 10 }),
+    body('passwordConfirmation').isLength({ min: 5, max: 10 }),
 
     async (req, res, next) => {
         const { login, password, passwordConfirmation } = req.body;
@@ -28,11 +28,11 @@ router.post(
                 }
             });
 
-            if(password != passwordConfirmation) {
+            if (password != passwordConfirmation) {
                 throw new ApiError('Password confirmation doesn\'t match Password', 400);
             }
 
-            if(user) {
+            if (user) {
                 throw new ApiError('User with same login already exists', 400);
             }
 

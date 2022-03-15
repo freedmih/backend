@@ -13,9 +13,9 @@ const router = express.Router();
 
 router.post(
     '/auth',
-    
-    body('login'),
-    body('password'),
+
+    body('login').isLength({ min: 3, max: 20 }),
+    body('password').isLength({ min: 5, max: 10 }),
 
     async (req, res, next) => {
         const { login, password } = req.body;
@@ -32,11 +32,11 @@ router.post(
                 }
             });
 
-            if(!user) {
+            if (!user) {
                 throw new ApiError('Login or password don\'t match', 403);
             }
 
-            const token = generateAccessToken({ username: user.login, id: user.id});
+            const token = generateAccessToken({ username: user.login, id: user.id });
 
             return res.json({ token });
         }
