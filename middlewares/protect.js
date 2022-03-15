@@ -1,12 +1,22 @@
 const { validateAccessToken } = require("../helpers/jwt");
+const { User } = require("../../models/index");
+const { ApiError } = require("../errors/apiError");
 
 module.exports = async (req, res, next) => {
     try {
         const user = validateAccessToken(req);
-        req.user = {
-            username: user.username,
-            id: user.id
-        };
+
+        if (!await User.findOne({
+            where: {
+                id: user.id
+            }
+        })) {
+            throw new ApiError('User not found', 401);
+        }
+
+            req.user = {
+                id: user.id
+            };
     }
     catch (err) {
         req.errors = [err.message];
