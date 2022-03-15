@@ -20,7 +20,7 @@ router.post(
 
         try {
             const task = await Task.create({
-                name, done, userId: user.id
+                name, done, UserId: user.id
             })
 
             return res.json({

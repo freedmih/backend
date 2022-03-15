@@ -1,7 +1,8 @@
 'use strict';
 
-const crypto = require("crypto");
 const { query } = require("../db");
+
+const crypto = require("crypto");
 
 module.exports = {
   async up(queryInterface, Sequelize) {
@@ -15,7 +16,7 @@ module.exports = {
      * }], {});
     */
 
-    const userId = await queryInterface.rawSelect('Users', {
+    const UserId = await queryInterface.rawSelect('Users', {
       where: {
         login: "admin"
       }
@@ -28,7 +29,7 @@ module.exports = {
         done: true,
         createdAt: new Date(),
         updatedAt: new Date(),
-        userId
+        UserId
       },
       {
         uuid: crypto.randomUUID(),
@@ -36,7 +37,7 @@ module.exports = {
         done: true,
         createdAt: new Date(),
         updatedAt: new Date(),
-        userId
+        UserId
       },
       {
         uuid: crypto.randomUUID(),
@@ -44,7 +45,7 @@ module.exports = {
         done: true,
         createdAt: new Date(),
         updatedAt: new Date(),
-        userId
+        UserId
       },
       {
         uuid: crypto.randomUUID(),
@@ -52,7 +53,7 @@ module.exports = {
         done: false,
         createdAt: new Date(),
         updatedAt: new Date(),
-        userId
+        UserId
       },
     ])
   },

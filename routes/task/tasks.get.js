@@ -33,7 +33,7 @@ router.get(
 
             const tasks = await Task.findAll({
                 where: { ...getFilterByName(filterBy),
-                    userId: user.id
+                    UserId: user.id
                 },
                 order: [['createdAt', order]],
                 limit: pp,
@@ -42,7 +42,7 @@ router.get(
 
             const count = await Task.count({
                 where: { ...getFilterByName(filterBy),
-                    userId: user.id
+                    UserId: user.id
                 }
             });
 

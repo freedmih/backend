@@ -30,7 +30,7 @@ router.patch(
             }, {
                 where:  {
                     uuid,
-                    userId: user.id
+                    UserId: user.id
                 }
             })
 
