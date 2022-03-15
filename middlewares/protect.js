@@ -1,5 +1,5 @@
 const { validateAccessToken } = require("../helpers/jwt");
-const { User } = require("../../models/index");
+const { User } = require("../models/index");
 const { ApiError } = require("../errors/apiError");
 
 module.exports = async (req, res, next) => {
