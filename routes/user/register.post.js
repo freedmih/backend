@@ -29,11 +29,11 @@ router.post(
             });
 
             if (password !== passwordConfirmation) {
-                throw new ApiError('Password confirmation doesn\'t match Password', 400);
+                throw new ApiError(res.__('password_confirm_doesnt_match'), 400);
             }
 
             if (user) {
-                throw new ApiError('User with same login already exists', 400);
+                throw new ApiError(res.__('user_exists'), 400);
             }
 
             user = await User.create({

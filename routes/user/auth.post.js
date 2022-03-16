@@ -30,7 +30,7 @@ router.post(
             });
 
             if (!user || !user.validPassword(password)) {
-                throw new ApiError('Login or password don\'t match', 403);
+                throw new ApiError(res.__('invalid_login_pass'), 403);
             }
 
             const token = generateAccessToken({ username: user.login, id: user.id });

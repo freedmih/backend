@@ -35,7 +35,7 @@ router.patch(
             })
 
             if (!task)
-                throw new ApiError("Task hasn't update", 422);
+                throw new ApiError(res.__('task_hasnt_update'), 422);
 
             res.status(204).end();
         }

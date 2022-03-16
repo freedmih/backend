@@ -28,7 +28,7 @@ router.delete(
             });
 
             if (count === 0)
-                throw new ApiError("Task not found", 404);
+                throw new ApiError(res.__('task_not_found'), 404);
 
             return res.sendStatus(204);
         }
