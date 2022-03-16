@@ -4,5 +4,7 @@
     "invalid_login_pass": "Логин или пароль не совпадают",
     "password_confirm_doesnt_match": "Подтверждение пароля должно совпадать",
     "user_exists": "Пользователь с таким логином уже существует",
-    "user_not_found": "Пользователь не найден"
+    "user_not_found": "Пользователь не найден",
+    "requires_jwt": "Требуется JWT токен",
+    "invalid_jwt": "Невалидный JWT токен"
 }
