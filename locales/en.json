@@ -4,5 +4,7 @@
     "invalid_login_pass": "Login or password don't match",
     "password_confirm_doesnt_match": "Password confirmation doesn't match Password",
     "user_exists": "User with same login already exists",
-    "user_not_found": "User not found"
+    "user_not_found": "User not found",
+    "requires_jwt": "This route requires a JWT token",
+    "invalid_jwt": "Invalid JWT token"
 }
