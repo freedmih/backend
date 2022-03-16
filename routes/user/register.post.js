@@ -12,8 +12,8 @@ const router = express.Router();
 router.post(
     '/register',
 
-    body('login').isLength({ min: 3, max: 20 }).withMessage('The login must be 3 to 20 characters length'),
-    body('password').isLength({ min: 5, max: 10 }).withMessage('The password must be 3 to 20 characters length'),
+    body('login').isLength({ min: 3, max: 20 }).withMessage(res.__('login_validation')),
+    body('password').isLength({ min: 5, max: 10 }).withMessage(res.__('password_validation')),
     body('passwordConfirmation'),
 
     async (req, res, next) => {

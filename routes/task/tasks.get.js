@@ -18,10 +18,10 @@ const getFilterByName = filter => {
 router.get(
     '/tasks',
     protect,
-    query('filterBy').default('all').isIn(['done', 'undone', 'all']),
-    query('order').default('asc').isIn(['asc', 'desc']),
-    query('page').default(1).isInt(),
-    query('pp').default(5).isInt(),
+    query('filterBy').default('all').isIn(['done', 'undone', 'all']).withMessage(res.__('filter_validation')),
+    query('order').default('asc').isIn(['asc', 'desc']).withMessage(res.__('order_validation')),
+    query('page').default(1).isInt().withMessage(res.__('page_validation')),
+    query('pp').default(5).isInt().withMessage(res.__('pp_validation')),
 
     async (req, res, next) => {
         const { filterBy, order, page, pp } = req.query;

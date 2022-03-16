@@ -10,10 +10,10 @@ const router = express.Router();
 router.patch(
     '/task/:uuid',
     protect,
-    param('uuid').isUUID(4),
-    body('name').optional().isLength({ min: 1, max: 50 }),
-    body('done').optional().isBoolean(),
-    body('createdAt').optional().isDate(),
+    param('uuid').isUUID(4).withMessage(res.__('uuid_validation')),
+    body('name').optional().isLength({ min: 1, max: 50 }).withMessage(res.__('name_validation')),
+    body('done').optional().isBoolean().withMessage(res.__('done_validation')),
+    body('createdAt').optional().isDate().withMessage(res.__('createdAt_validation')),
 
     async (req, res, next) => {
         validateErrors(req);

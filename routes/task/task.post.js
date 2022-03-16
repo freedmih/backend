@@ -9,8 +9,8 @@ const router = express.Router();
 router.post(
     '/task',
     protect,
-    body('name').isLength({ min: 1, max: 50 }),
-    body('done').default(false).isBoolean(),
+    body('name').isLength({ min: 1, max: 50 }).withMessage(res.__('name_validation')),
+    body('done').default(false).isBoolean().withMessage(res.__('done_validation')),
 
     async (req, res, next) => {
         validateErrors(req);

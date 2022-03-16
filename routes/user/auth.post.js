@@ -14,7 +14,7 @@ const router = express.Router();
 router.post(
     '/auth',
 
-    body('login').isLength({ min: 3, max: 20 }).withMessage('The login must be 3 to 20 characters length'),
+    body('login').isLength({ min: 3, max: 20 }).withMessage(res.__('login_validation')),
     body('password'),
 
     async (req, res, next) => {
@@ -25,7 +25,7 @@ router.post(
 
             const user = await User.findOne({
                 where: {
-                        login,
+                    login,
                 }
             });
 

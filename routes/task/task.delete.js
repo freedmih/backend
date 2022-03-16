@@ -13,7 +13,7 @@ const router = express.Router();
 router.delete(
     '/task/:uuid',
     protect,
-    param('uuid').isUUID(4),
+    param('uuid').isUUID(4).withMessage(res.__('uuid_validation')),
 
     async (req, res, next) => {
         const { uuid } = req.params;
