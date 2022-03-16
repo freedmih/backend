@@ -12,11 +12,11 @@ module.exports.validateAccessToken = (req, res) => {
   const authHeader = req.headers['authorization']
   const token = authHeader && authHeader.split(' ')[1];
 
-  if (token == null) throw new ApiError(res.__('requires_jwt'), 401);
+  if (token == null) throw new ApiError('requires_jwt', 401);
 
   let result;
   jwt.verify(token, process.env.TOKEN_SECRET, (err, user) => {
-    if (err) throw new ApiError(res.__('invalid_jwt'), 403);
+    if (err) throw new ApiError('invalid_jwt', 403);
 
     result = user;
   });

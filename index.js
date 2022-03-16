@@ -33,7 +33,7 @@ recursive(`${__dirname}/routes`)
     .forEach(file => app.use('/', require(file)));
 
 function logErrors(err, req, res, next) {
-    const errors = err.errors ? [...err.errors] : err.message;
+    const errors = err.errors ? [...err.errors.map(err => res.__(err))] : res.__(err.message);
     return res.status(err.httpCode ?? 500).json({ errors: errors });
 }
 
