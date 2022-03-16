@@ -8,7 +8,7 @@ module.exports.generateAccessToken = username => {
   return jwt.sign(username, process.env.TOKEN_SECRET);
 }
 
-module.exports.validateAccessToken = req => {
+module.exports.validateAccessToken = (req, res) => {
   const authHeader = req.headers['authorization']
   const token = authHeader && authHeader.split(' ')[1];
 

@@ -4,14 +4,14 @@ const { ApiError } = require("../errors/apiError");
 
 module.exports = async (req, res, next) => {
     try {
-        const user = validateAccessToken(req);
+        const user = validateAccessToken(req, res);
 
         if (!await User.findOne({
             where: {
                 id: user.id
             }
         })) {
-            throw new ApiError(res.__('user_not_found'), 401);
+            throw new ApiError('user_not_found', 401);
         }
 
             req.user = {

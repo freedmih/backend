@@ -13,7 +13,7 @@ const router = express.Router();
 router.delete(
     '/task/:uuid',
     protect,
-    param('uuid').isUUID(4).withMessage(res.__('uuid_validation')),
+    param('uuid').isUUID(4).withMessage('uuid_validation'),
 
     async (req, res, next) => {
         const { uuid } = req.params;
@@ -21,14 +21,14 @@ router.delete(
         const user = req.user;
 
         try {
-            validateErrors(req);
+            validateErrors(req, res);
 
             const count = await Task.destroy({
                 where: { uuid, UserId: user.id }
             });
 
             if (count === 0)
-                throw new ApiError(res.__('task_not_found'), 404);
+                throw new ApiError('task_not_found', 404);
 
             return res.sendStatus(204);
         }

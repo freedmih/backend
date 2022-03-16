@@ -14,14 +14,14 @@ const router = express.Router();
 router.post(
     '/auth',
 
-    body('login').isLength({ min: 3, max: 20 }).withMessage(res.__('login_validation')),
+    body('login').isLength({ min: 3, max: 20 }).withMessage('login_validation'),
     body('password'),
 
     async (req, res, next) => {
         const { login, password } = req.body;
 
         try {
-            validateErrors(req);
+            validateErrors(req, res);
 
             const user = await User.findOne({
                 where: {
@@ -30,7 +30,7 @@ router.post(
             });
 
             if (!user || !user.validPassword(password)) {
-                throw new ApiError(res.__('invalid_login_pass'), 403);
+                throw new ApiError('invalid_login_pass', 403);
             }
 
             const token = generateAccessToken({ username: user.login, id: user.id });

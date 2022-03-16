@@ -10,13 +10,13 @@ const router = express.Router();
 router.patch(
     '/task/:uuid',
     protect,
-    param('uuid').isUUID(4).withMessage(res.__('uuid_validation')),
-    body('name').optional().isLength({ min: 1, max: 50 }).withMessage(res.__('name_validation')),
-    body('done').optional().isBoolean().withMessage(res.__('done_validation')),
-    body('createdAt').optional().isDate().withMessage(res.__('createdAt_validation')),
+    param('uuid').isUUID(4).withMessage('uuid_validation'),
+    body('name').optional().isLength({ min: 1, max: 50 }).withMessage('name_validation'),
+    body('done').optional().isBoolean().withMessage('done_validation'),
+    body('createdAt').optional().isDate().withMessage('createdAt_validation'),
 
     async (req, res, next) => {
-        validateErrors(req);
+        validateErrors(req, res);
 
         const { uuid } = req.params;
 
@@ -35,7 +35,7 @@ router.patch(
             })
 
             if (!task)
-                throw new ApiError(res.__('task_hasnt_update'), 422);
+                throw new ApiError('task_hasnt_update', 422);
 
             res.status(204).end();
         }
