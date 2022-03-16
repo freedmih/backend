@@ -29,10 +29,6 @@ app.use(cors());
 app.use(express.json());
 app.use(i18n.init);
 
-app.use('/test', (req, res) => {
-    res.send(res.__('Hello World'));
-});
-
 recursive(`${__dirname}/routes`)
     .forEach(file => app.use('/', require(file)));
 
