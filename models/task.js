@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      this.belongsTo(models.User);
+      this.belongsTo(models.User, {foreignKey: 'user_id', targetKey: 'id'});
     }
   }
   Task.init({
@@ -29,12 +29,13 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     createdAt: {
-      type: DataTypes.DATE
+      type: DataTypes.DATE,
+      allowNull: false
     },
     updatedAt: {
       type: DataTypes.DATE
     },
-    UserId: {
+    user_id: {
       type: DataTypes.INTEGER,
       allowNull: false
     }
