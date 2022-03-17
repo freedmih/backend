@@ -2,7 +2,6 @@
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    try {
     await queryInterface.createTable('Tasks', {
       uuid: {
         primaryKey: true,
@@ -27,10 +26,6 @@ module.exports = {
         type: Sequelize.DATE
       }
     });
-  }
-  catch(e) {
-    console.log(e);
-  }
   },
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('Tasks');
