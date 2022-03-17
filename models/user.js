@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      this.hasMany(models.Task);
+      this.hasMany(models.Task, );
     }
 
     validPassword = password => {
@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
 
   User.init({
     login: DataTypes.STRING(20),
-    password: DataTypes.STRING(50)
+    password: DataTypes.STRING(72)
   }, {
     sequelize,
     modelName: 'User',

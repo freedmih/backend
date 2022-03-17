@@ -16,7 +16,7 @@ module.exports = {
      * }], {});
     */
 
-    const UserId = await queryInterface.rawSelect('Users', {
+    const user_id = await queryInterface.rawSelect('Users', {
       where: {
         login: "admin"
       }
@@ -29,7 +29,7 @@ module.exports = {
         done: true,
         createdAt: new Date(),
         updatedAt: new Date(),
-        UserId
+        user_id
       },
       {
         uuid: crypto.randomUUID(),
@@ -37,7 +37,7 @@ module.exports = {
         done: true,
         createdAt: new Date(),
         updatedAt: new Date(),
-        UserId
+        user_id
       },
       {
         uuid: crypto.randomUUID(),
@@ -45,7 +45,7 @@ module.exports = {
         done: true,
         createdAt: new Date(),
         updatedAt: new Date(),
-        UserId
+        user_id
       },
       {
         uuid: crypto.randomUUID(),
@@ -53,7 +53,7 @@ module.exports = {
         done: false,
         createdAt: new Date(),
         updatedAt: new Date(),
-        UserId
+        user_id
       },
     ])
   },
