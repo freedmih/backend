@@ -21,12 +21,18 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: DataTypes.UUIDV4
     },
     name: {
-      type: DataTypes.TEXT,
+      type: DataTypes.STRING(50),
       allowNull: false
     },
     done: {
       type: DataTypes.BOOLEAN,
       allowNull: false
+    },
+    createdAt: {
+      type: DataTypes.DATE
+    },
+    updatedAt: {
+      type: DataTypes.DATE
     },
     UserId: {
       type: DataTypes.INTEGER,
