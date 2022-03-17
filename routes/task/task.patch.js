@@ -22,7 +22,7 @@ router.patch(
 
         const taskContent = req.body;
 
-        const user = req.user;
+        const userId = res.locals.userId;
 
         try {
             const task = await Task.update({
@@ -30,7 +30,7 @@ router.patch(
             }, {
                 where:  {
                     uuid,
-                    user_id: user.id
+                    user_id: userId
                 }
             })
 

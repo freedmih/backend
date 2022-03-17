@@ -18,13 +18,13 @@ router.delete(
     async (req, res, next) => {
         const { uuid } = req.params;
 
-        const user = req.user;
+        const userId = res.locals.user_id;
 
         try {
             validateErrors(req, res);
 
             const count = await Task.destroy({
-                where: { uuid, user_id: user.id }
+                where: { uuid, user_id: userId }
             });
 
             if (count === 0)

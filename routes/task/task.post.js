@@ -16,11 +16,11 @@ router.post(
         validateErrors(req, res);
 
         const { name, done } = req.body;
-        const user = req.user;
+        const userId = res.locals.userId;
 
         try {
             const task = await Task.create({
-                name, done, user_id: user.id
+                name, done, user_id: userId
             })
 
             return res.json({

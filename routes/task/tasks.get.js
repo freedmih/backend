@@ -26,14 +26,14 @@ router.get(
     async (req, res, next) => {
         const { filterBy, order, page, pp } = req.query;
 
-        const user = req.user;
+        const userId = res.locals.userId;
 
         try {
             validateErrors(req, res);
 
             const tasks = await Task.findAll({
                 where: { ...getFilterByName(filterBy),
-                    user_id: user.id
+                    user_id: userId
                 },
                 order: [['createdAt', order]],
                 limit: pp,
@@ -42,7 +42,7 @@ router.get(
 
             const count = await Task.count({
                 where: { ...getFilterByName(filterBy),
-                    user_id: user.id
+                    user_id: userId
                 }
             });
 
