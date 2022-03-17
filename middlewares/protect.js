@@ -14,7 +14,7 @@ module.exports = async (req, res, next) => {
             throw new ApiError('user_not_found', 401);
         }
 
-        res.locals.user_id = user.id;
+        res.locals.userId = user.id;
     }
     catch (err) {
         req.errors = [err.message];

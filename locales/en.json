@@ -17,5 +17,6 @@
 	"order_validation": "The order can only take 2 values (asc, desc)",
 	"page_validation": "The page must be an integer",
 	"pp_validation": "The page size must be an integer",
-	"column \"UserId\" does not exist": "column \"UserId\" does not exist"
+	"column \"UserId\" does not exist": "column \"UserId\" does not exist",
+	"WHERE parameter \"user_id\" has invalid \"undefined\" value": "WHERE parameter \"user_id\" has invalid \"undefined\" value"
 }
