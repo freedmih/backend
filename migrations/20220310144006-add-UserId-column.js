@@ -11,7 +11,12 @@ module.exports = {
     await queryInterface.addColumn('Tasks', 'user_id', {
       type: Sequelize.INTEGER,
       allowNull: false,
-      defaultValue: 1
+      defaultValue: 1,
+      references: {
+        model: 'Users', 
+        key: 'id', 
+      },
+      onDelete: 'CASCADE'
     })
   },
 
