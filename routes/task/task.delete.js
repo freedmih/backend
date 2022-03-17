@@ -24,7 +24,7 @@ router.delete(
             validateErrors(req, res);
 
             const count = await Task.destroy({
-                where: { uuid, UserId: user.id }
+                where: { uuid, user_id: user.id }
             });
 
             if (count === 0)
